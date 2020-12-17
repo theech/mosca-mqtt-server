@@ -1,13 +1,17 @@
 const mqtt = require('mqtt')
-var client = mqtt.connect('mqtt://localhost:1234')
+const client = mqtt.connect('mqtt://localhost:1883')
 
-const topic = 'test123'
-
-client.on('message', (topic, message) => {
-  message = message.toString()
-  console.log(`${message} on ${Date()}`)
-})
+const topics = ['temp', 'humid', 'test123']
 
 client.on('connect', () => {
-  client.subscribe(topic)
+  topics.forEach((topic) => {
+    client.subscribe(topic)
+  })
+})
+
+client.on('message', (topics, message, packet) => {
+  message = message.toString()
+  if (topics === packet.topic) {
+    console.log(`${packet.topic}: ${message}`)
+  }
 })

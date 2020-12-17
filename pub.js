@@ -1,5 +1,5 @@
 const mqtt = require('mqtt')
-const client = mqtt.connect('mqtt://localhost:1234')
+const client = mqtt.connect('mqtt://localhost:1883')
 const topic = 'test123'
 
 const message = 'Hello there'
